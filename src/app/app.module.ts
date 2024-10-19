@@ -13,7 +13,7 @@ import { EditStudentComponent } from './Components/edit-student/edit-student.com
     AppComponent,
     StudentListComponent,
     AddStudentComponent,
-    EditStudentComponent
+    EditStudentComponent,
   ],
   imports: [
     BrowserModule,
