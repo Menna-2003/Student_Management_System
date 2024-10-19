@@ -6,14 +6,14 @@ import {
 } from '@angular/common/http';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment'
-import { IApiResponse } from '../Models/iapi-response';
-import { PostIStudent } from '../Models/post-istudent';
-import { PutIStudent } from '../Models/put-istudent';
+import { LoginRequest } from '../Models/login-request';
+import { CreateUserRequest } from '../Models/create-user-request';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentService {
+export class UserService {
+
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -23,38 +23,32 @@ export class StudentService {
 
   constructor(private httpClient: HttpClient) { }
 
-  GetAllStudents(): Observable<IApiResponse> {
-    return this.httpClient.get<IApiResponse>(`${environment.APIUrl}/Student/Get`)
+  login(credentials: LoginRequest): Observable<any> {
+    return this.httpClient
+      .post<any>(`${environment.APIUrl}/User/Login`, JSON.stringify(credentials), this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  createUser(newUser: CreateUserRequest): Observable<any> {
+    return this.httpClient
+      .post<any>(`${environment.APIUrl}/User/POST`, JSON.stringify(newUser), this.httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  CreateStudent(newStudent: PostIStudent): Observable<any> {
-    return this.httpClient.post<any>(
-      `${environment.APIUrl}/Student/Post`,
-      JSON.stringify(newStudent),
-      this.httpOptions
-    );
-  }
+  logout(token: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Accept': 'text/plain',
+        'token': token,
+      }),
+    };
 
-  EditStudent(student: PutIStudent): Observable<any> {
-    return this.httpClient.put<any>(`${environment.APIUrl}/Student/PUT`, student, {
-      headers: this.httpOptions.headers,
-      observe: 'body'
-    }).pipe(
+    return this.httpClient.post<any>(`${environment.APIUrl}/User/Logout`, '', httpOptions).pipe(
       catchError(this.handleError)
     );
   }
-
-  DeleteStudent(id: number) {
-    const url = `${environment.APIUrl}/Student/Delete?id=${id}`;
-    return this.httpClient.delete(url, this.httpOptions).pipe(
-      retry(2),
-      catchError(this.handleError)
-    );
-  }
-
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
@@ -73,5 +67,4 @@ export class StudentService {
       () => new Error('Something bad happened; please try again later.')
     );
   }
-
 }
