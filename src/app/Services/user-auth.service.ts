@@ -9,23 +9,14 @@ import { Observable } from 'rxjs';
 })
 export class UserAuthService {
 
-  newUser: CreateUserRequest = {
-    Name: 'menna',
-    UserName: 'mennamohamed',
-    Password: '123456',
-  }
-  user: LoginRequest = {
-    UserName: 'mennamohamed',
-    Password: '123456',
-  }
-
   constructor(private userService: UserService) { }
 
-  Register() {
-    this.userService.createUser(this.newUser).subscribe({
+  Register(newUser: CreateUserRequest) {
+    this.userService.createUser(newUser).subscribe({
       next: (response) => {
         console.log('User Created successfully: ', response);
-        localStorage.setItem('token', response.Data);
+        this.Login(newUser)
+        // localStorage.setItem('token', response.Data);
       },
       error: (err) => {
         console.error('Error Creating User: ', err);
@@ -62,8 +53,8 @@ export class UserAuthService {
     }
   }
 
-  Login() {
-    this.userService.login(this.user).subscribe({
+  Login(user: LoginRequest) {
+    this.userService.login(user).subscribe({
       next: (response) => {
         console.log('Logged in successfully: ', response);
         localStorage.setItem('token', response.Data);
@@ -75,7 +66,6 @@ export class UserAuthService {
         }
       }
     })
-
 
   }
 

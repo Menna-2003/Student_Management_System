@@ -8,6 +8,7 @@ import { NotFoundComponent } from './Components/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: StudentListComponent },
+  { path: 'Home', component: StudentListComponent },
   { path: 'Student', component: StudentListComponent, canActivate: [AuthGuard] },
   { path: 'Login', component: LoginComponent },
   { path: 'Register', component: RegisterComponent },
