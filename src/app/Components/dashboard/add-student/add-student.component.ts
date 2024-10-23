@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostIStudent } from 'src/app/Models/post-istudent';
 import { StudentService } from 'src/app/Services/student.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-student',
@@ -12,7 +13,7 @@ import { StudentService } from 'src/app/Services/student.service';
 export class AddStudentComponent implements OnInit {
   AddUserForm: FormGroup;
 
-  constructor(private studentService: StudentService, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private studentService: StudentService, private formBuilder: FormBuilder, private router: Router, private snackBar: MatSnackBar) {
 
     this.AddUserForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
@@ -63,6 +64,7 @@ export class AddStudentComponent implements OnInit {
       next: (response) => {
         console.log('Student added successfully: ', response);
         this.router.navigate([`/Dashboard/Students`]);
+        this.notification(`Student '${this.FirstName?.value}' Added Successfully`)
       },
       error: (err) => {
         console.error('Error adding student: ', err);
@@ -71,6 +73,20 @@ export class AddStudentComponent implements OnInit {
         }
       }
     });
+  }
+
+  private notification(message: string) {
+    this.snackBar.open(
+      `${message}`,
+      'Close',
+      {
+        duration: 5000,
+        horizontalPosition: 'right',
+        verticalPosition: 'bottom',
+        panelClass: ['custom-snackbar'],
+      }
+    );
+    console.log(message)
   }
 
 }

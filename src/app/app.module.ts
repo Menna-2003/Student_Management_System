@@ -15,7 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatIconModule } from '@angular/material/icon';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -24,6 +24,12 @@ import { MatInputModule } from '@angular/material/input';
 import { HomeComponent } from './Components/home/home.component';
 import { DashboardLayoutComponent } from './Components/dashboard-layout/dashboard-layout.component';
 import { MainLayoutComponent } from './Components/main-layout/main-layout.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -52,11 +58,16 @@ import { MainLayoutComponent } from './Components/main-layout/main-layout.compon
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatToolbarModule
   ],
   exports: [
     MatIconModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

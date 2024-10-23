@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PutIStudent } from 'src/app/Models/put-istudent';
 import { StudentService } from 'src/app/Services/student.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-student',
@@ -26,7 +27,7 @@ export class EditStudentComponent implements OnInit {
     Age: 0
   };
 
-  constructor(private studentService: StudentService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
+  constructor(private studentService: StudentService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private snackBar: MatSnackBar) {
 
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
@@ -115,6 +116,7 @@ export class EditStudentComponent implements OnInit {
       next: (response) => {
         console.log('Student Edited successfully: ', response);
         this.router.navigate(['/Dashboard/Students']);
+        this.notification(`Students '${this.FirstName?.value}' Edited successfully`);
       },
       error: (err) => {
         console.error('Error Editing student: ', err);
@@ -123,6 +125,20 @@ export class EditStudentComponent implements OnInit {
         }
       }
     })
+  }
+
+  private notification(message: string) {
+    this.snackBar.open(
+      `${message}`,
+      'Close',
+      {
+        duration: 5000,
+        horizontalPosition: 'right',
+        verticalPosition: 'bottom',
+        panelClass: ['custom-snackbar'],
+      }
+    );
+    console.log(message)
   }
 
 }
