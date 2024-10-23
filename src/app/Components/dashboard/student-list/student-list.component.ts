@@ -5,6 +5,7 @@ import { StudentService } from 'src/app/Services/student.service';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-list',
@@ -12,11 +13,12 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./student-list.component.scss']
 })
 export class StudentListComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['ID', 'name', 'Age', 'Email', 'Mobile', 'NationalID'];
+
+  displayedColumns: string[] = ['ID', 'name', 'Age', 'Email', 'Mobile', 'NationalID', 'Actions'];
   dataSource = new MatTableDataSource<IStudent>([]); // Initialize as empty
   message: string = '';
 
-  constructor(private studentService: StudentService, private _liveAnnouncer: LiveAnnouncer) { }
+  constructor(private studentService: StudentService, private _liveAnnouncer: LiveAnnouncer, private router: Router) { }
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -57,4 +59,24 @@ export class StudentListComponent implements OnInit, AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  Delete(id: number) {
+    this.studentService.DeleteStudent(id).subscribe({
+      next: (response) => {
+        console.log(`Student ${id} Deleted successfully: `, response);
+        this.getStudents();
+      },
+      error: (err) => {
+        console.error('Error Deleting student: ', err);
+        if (err.error && err.error.errors) {
+          console.error('Validation errors: ', err.error.errors);
+        }
+      }
+    })
+  }
+
+  Edit(id: number) {
+    this.router.navigate([`/Dashboard/Edit/${id}`]);
+  }
+
 }

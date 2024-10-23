@@ -1,0 +1,23 @@
+<div class="dashboard-layout mt-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-3 col-lg-2 mb-3 mb-md-0 mt-5">
+                <nav class="d-lg-grid d-md-grid gap-2" style="justify-items: center; align-items: center;">
+                    <a routerLink="Students" routerLinkActive="active" class="btn text-center"
+                        style="background-color: #6CA0DC; color: #fff; max-width: 200px;">
+                        Students List
+                    </a>
+                    <a routerLink="Add" routerLinkActive="active" class="btn text-center"
+                        style="background-color: #6CA0DC; color: #fff; max-width: 200px;">
+                        Add Student
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Main content area -->
+            <div class="col-12 col-md-9 col-lg-10">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

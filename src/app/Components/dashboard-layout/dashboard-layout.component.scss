@@ -1,0 +1,23 @@
+.dashboard-layout {
+    min-height: 100vh;
+
+    nav {
+        .btn {
+            width: 100%;
+            /* Ensure buttons take full width inside the sidebar */
+            text-align: left;
+            /* Align text to the left for better UX */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-layout {
+            .btn {
+                font-size: 1rem;
+                /* Adjust font size for smaller screens */
+                margin-bottom: 10px;
+                /* Add space between buttons */
+            }
+        }
+    }
+}

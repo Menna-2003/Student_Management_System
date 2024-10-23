@@ -4,9 +4,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StudentListComponent } from './Components/student-list/student-list.component';
-import { AddStudentComponent } from './Components/add-student/add-student.component';
-import { EditStudentComponent } from './Components/edit-student/edit-student.component';
+import { StudentListComponent } from './Components/dashboard/student-list/student-list.component';
+import { AddStudentComponent } from './Components/dashboard/add-student/add-student.component';
+import { EditStudentComponent } from './Components/dashboard/edit-student/edit-student.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { NotFoundComponent } from './Components/not-found/not-found.component';
@@ -22,6 +22,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HomeComponent } from './Components/home/home.component';
+import { DashboardLayoutComponent } from './Components/dashboard-layout/dashboard-layout.component';
+import { MainLayoutComponent } from './Components/main-layout/main-layout.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { HomeComponent } from './Components/home/home.component';
     NotFoundComponent,
     NavbarComponent,
     HomeComponent,
+    DashboardLayoutComponent,
+    MainLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +53,7 @@ import { HomeComponent } from './Components/home/home.component';
     MatFormFieldModule,
     MatInputModule,
   ],
-  exports:[
+  exports: [
     MatIconModule
   ],
   providers: [],

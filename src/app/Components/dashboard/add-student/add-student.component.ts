@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PostIStudent } from 'src/app/Models/post-istudent';
 import { StudentService } from 'src/app/Services/student.service';
 
@@ -11,7 +12,7 @@ import { StudentService } from 'src/app/Services/student.service';
 export class AddStudentComponent implements OnInit {
   AddUserForm: FormGroup;
 
-  constructor(private studentService: StudentService, private formBuilder: FormBuilder) {
+  constructor(private studentService: StudentService, private formBuilder: FormBuilder, private router: Router) {
 
     this.AddUserForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
@@ -61,6 +62,7 @@ export class AddStudentComponent implements OnInit {
     this.studentService.CreateStudent(newStudent).subscribe({
       next: (response) => {
         console.log('Student added successfully: ', response);
+        this.router.navigate([`/Dashboard/Students`]);
       },
       error: (err) => {
         console.error('Error adding student: ', err);

@@ -6,11 +6,11 @@
 .table-container {
   background-color: #f0f8ff;
   /* Light Alice Blue Background */
-  padding: 20px;
+  // padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   /* Subtle shadow */
-  margin-top: 30px;
+  // margin-top: 30px;
 }
 
 /* Table Styling */
@@ -62,7 +62,7 @@ tr:hover {
 .filter-container {
   display: flex;
   justify-content: center;
-  margin: 50px 0 15px 0;
+  margin: 25px 0 15px 0;
 }
 
 .filter-field {
@@ -76,6 +76,12 @@ tr:hover {
   border-radius: 8px;
   padding: 5px;
   // border: 1px solid #8c008e;
+}
+
+.edit,
+.delete {
+  margin: 10px;
+  cursor: pointer;
 }
 
 .table-responsive {

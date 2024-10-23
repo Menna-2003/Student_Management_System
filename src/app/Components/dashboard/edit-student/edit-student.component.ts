@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PutIStudent } from 'src/app/Models/put-istudent';
 import { StudentService } from 'src/app/Services/student.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-student',
@@ -11,6 +12,7 @@ import { StudentService } from 'src/app/Services/student.service';
 export class EditStudentComponent implements OnInit {
 
   EditUserForm: FormGroup;
+  studentId! : number;  // Store the ID as a number
 
   studentData: PutIStudent = {
     ID: 0,
@@ -24,9 +26,15 @@ export class EditStudentComponent implements OnInit {
     Age: 0
   };
 
-  constructor(private studentService: StudentService, private formBuilder: FormBuilder) {
+  constructor(private studentService: StudentService, private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router) {
 
-    studentService.GetEditableByID(1412).subscribe({
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      this.studentId = id ? +id : 0;  // Use '+' to convert string to number
+      console.log('Student ID (as number):', this.studentId);
+    });
+
+    studentService.GetEditableByID(this.studentId).subscribe({
       next: (response) => {
         console.log('Student : ', response);
         this.studentData.ID = response.Data.ID;
@@ -92,7 +100,7 @@ export class EditStudentComponent implements OnInit {
   EditStudent() {
 
     let newStdData: PutIStudent = {
-      ID: 1,
+      ID: this.studentId,
       NameArabic: this.NameArabic?.value,
       NameEnglish: this.NameEnglish?.value,
       FirstName: this.FirstName?.value,
@@ -106,23 +114,10 @@ export class EditStudentComponent implements OnInit {
     this.studentService.EditStudent(newStdData).subscribe({
       next: (response) => {
         console.log('Student Edited successfully: ', response);
+        this.router.navigate(['/Dashboard/Students']);
       },
       error: (err) => {
         console.error('Error Editing student: ', err);
-        if (err.error && err.error.errors) {
-          console.error('Validation errors: ', err.error.errors);
-        }
-      }
-    })
-  }
-
-  DeleteStudent(id: number) {
-    this.studentService.DeleteStudent(id).subscribe({
-      next: (response) => {
-        console.log(`Student ${id} Deleted successfully: `, response);
-      },
-      error: (err) => {
-        console.error('Error Deleting student: ', err);
         if (err.error && err.error.errors) {
           console.error('Validation errors: ', err.error.errors);
         }

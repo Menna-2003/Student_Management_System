@@ -1,34 +1,9 @@
 <div class="container mt-5">
     <div class="main-body">
         <div class="row">
-            <form [formGroup]="EditUserForm" (ngSubmit)="EditStudent()">
+            <form [formGroup]="AddUserForm" (ngSubmit)="addStudent()">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-sm-2 text-center">
-                                <h3 class="mb-0">English Name</h3>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input formControlName="nameEnglish" type="text" class="form-control">
-                                <div class="text-danger" [hidden]="NameEnglish?.valid || NameEnglish?.untouched">
-                                    <small *ngIf="NameEnglish?.errors?.['required']">English Name is required</small>
-                                    <small *ngIf="NameEnglish?.errors?.['pattern']">English Name must be at least 3
-                                        letters,
-                                        '{{NameEnglish?.errors?.['pattern'].actualValue}}' doesn't match</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-sm-2 text-center">
-                                <h3 class="mb-0">Arabic Name</h3>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                <input formControlName="nameArabic" type="text" class="form-control">
-                                <div class="text-danger" [hidden]="NameArabic?.valid || NameArabic?.untouched">
-                                    <small *ngIf="NameArabic?.errors?.['required']">Arabic Name is required</small>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row mb-3">
                             <div class="col-sm-2 text-center">
                                 <h3 class="mb-0">First Name</h3>
@@ -106,9 +81,9 @@
                         <div class="row">
                             <div class="col-sm-2 text-center"></div>
                             <div class="col-sm-9 text-secondary">
-                                <button type="submit" class="btn px-4" [disabled]="!EditUserForm.valid"
-                                    style="background-color: #6CA0DC; color: #fff;background-color: #6CA0DC;">
-                                    Update Student
+                                <button type="submit" class="btn px-4" [disabled]="!AddUserForm.valid"
+                                    style="background-color: #6CA0DC; color: #fff;">
+                                    Add Student
                                 </button>
                             </div>
                         </div>

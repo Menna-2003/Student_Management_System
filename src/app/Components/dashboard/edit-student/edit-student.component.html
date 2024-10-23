@@ -1,15 +1,40 @@
 <div class="container mt-5">
     <div class="main-body">
         <div class="row">
-            <form [formGroup]="AddUserForm" (ngSubmit)="addStudent()">
+            <form [formGroup]="EditUserForm" (ngSubmit)="EditStudent()">
                 <div class="card">
                     <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-sm-2 text-center">
+                                <h3 class="mb-0">English Name</h3>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input formControlName="nameEnglish" type="text" class="form-control" value={{studentData.NameEnglish}}>
+                                <div class="text-danger" [hidden]="NameEnglish?.valid || NameEnglish?.untouched">
+                                    <small *ngIf="NameEnglish?.errors?.['required']">English Name is required</small>
+                                    <small *ngIf="NameEnglish?.errors?.['pattern']">English Name must be at least 3
+                                        letters,
+                                        '{{NameEnglish?.errors?.['pattern'].actualValue}}' doesn't match</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-2 text-center">
+                                <h3 class="mb-0">Arabic Name</h3>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input formControlName="nameArabic" type="text" class="form-control" value={{studentData.NameArabic}}>
+                                <div class="text-danger" [hidden]="NameArabic?.valid || NameArabic?.untouched">
+                                    <small *ngIf="NameArabic?.errors?.['required']">Arabic Name is required</small>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <div class="col-sm-2 text-center">
                                 <h3 class="mb-0">First Name</h3>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input formControlName="firstName" type="text" class="form-control">
+                                <input formControlName="firstName" type="text" class="form-control" value={{studentData.FirstName}}>
                                 <div class="text-danger" [hidden]="FirstName?.valid || FirstName?.untouched">
                                     <small *ngIf="FirstName?.errors?.['required']">First Name is required</small>
                                     <small *ngIf="FirstName?.errors?.['pattern']">First Name must be at least 3 letters,
@@ -22,7 +47,7 @@
                                 <h3 class="mb-0">Last Name</h3>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input formControlName="lastName" type="text" class="form-control">
+                                <input formControlName="lastName" type="text" class="form-control" value={{studentData.LastName}}>
                                 <div class="text-danger" [hidden]="LastName?.valid || LastName?.untouched">
                                     <small *ngIf="LastName?.errors?.['required']">Last Name is required</small>
                                     <small *ngIf="LastName?.errors?.['pattern']">Last Name must be at least 3 letters,
@@ -35,7 +60,7 @@
                                 <h3 class="mb-0">Email</h3>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input formControlName="email" type="text" class="form-control">
+                                <input formControlName="email" type="text" class="form-control" value={{studentData.Email}}>
                                 <div class="text-danger" [hidden]="Email?.valid || Email?.untouched">
                                     <small *ngIf="Email?.errors?.['required']">Email is required</small>
                                     <small *ngIf="Email?.errors?.['email']">Wrong email format</small>
@@ -47,7 +72,7 @@
                                 <h3 class="mb-0">Phone</h3>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input type="text" formControlName="mobile" class="form-control">
+                                <input type="text" formControlName="mobile" class="form-control" value={{studentData.Mobile}}>
                                 <div class="text-danger" [hidden]="Mobile?.valid || Mobile?.untouched">
                                     <small *ngIf="Mobile?.errors?.['required']">Mobile is required</small>
                                     <small *ngIf="Mobile?.errors?.['pattern']">Wrong Mobile format</small>
@@ -59,7 +84,7 @@
                                 <h3 class="mb-0">NationalID</h3>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input type="text" formControlName="nationalID" class="form-control">
+                                <input type="text" formControlName="nationalID" class="form-control" value={{studentData.NationalID}}>
                                 <div class="text-danger" [hidden]="NationalID?.valid || NationalID?.untouched">
                                     <small *ngIf="NationalID?.errors?.['required']">NationalID is required</small>
                                 </div>
@@ -70,7 +95,7 @@
                                 <h3 class="mb-0">Age</h3>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input type="text" formControlName="age" class="form-control">
+                                <input type="text" formControlName="age" class="form-control" value={{studentData.Age}}>
                                 <div class="text-danger" [hidden]="Age?.valid || Age?.untouched">
                                     <small *ngIf="Age?.errors?.['required']">Age is required</small>
                                     <small *ngIf="Age?.errors?.['min']">Minimum Age is 2</small>
@@ -81,9 +106,9 @@
                         <div class="row">
                             <div class="col-sm-2 text-center"></div>
                             <div class="col-sm-9 text-secondary">
-                                <button type="submit" class="btn px-4" [disabled]="!AddUserForm.valid"
+                                <button type="submit" class="btn px-4" [disabled]="!EditUserForm.valid"
                                     style="background-color: #6CA0DC; color: #fff;background-color: #6CA0DC;">
-                                    Add Student
+                                    Update Student
                                 </button>
                             </div>
                         </div>

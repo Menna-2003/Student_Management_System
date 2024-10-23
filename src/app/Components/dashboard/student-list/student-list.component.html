@@ -1,6 +1,7 @@
 <div class="filter-container">
     <mat-form-field class="filter-field">
-        <mat-label style="color:#000;"><i class="fa-solid fa-magnifying-glass" style="color: #000000; margin-right: 7px;"></i>
+        <mat-label style="color:#000;"><i class="fa-solid fa-magnifying-glass"
+                style="color: #000000; margin-right: 7px;"></i>
             Filter</mat-label>
         <input matInput (input)="applyFilter($event)" placeholder="Type to filter data" />
     </mat-form-field>
@@ -41,7 +42,20 @@
             <td mat-cell *matCellDef="let element">{{ element.NationalID }}</td>
         </ng-container>
 
+        <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="">Actions
+            </th>
+            <td mat-cell *matCellDef="let element">
+                <span class="edit" (click)="Edit(element.ID)">
+                    <i class="fa-solid fa-pen-to-square" style="color: #000000;"></i></span>
+                <span class="delete" (click)="Delete(element.ID)">
+                    <i class="fa-solid fa-trash" style="color: red;"></i></span>
+            </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
     </table>
+
 </div>
