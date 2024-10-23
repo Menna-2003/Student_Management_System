@@ -47,6 +47,12 @@ export class StudentService {
     );
   }
 
+  GetEditableByID(id: number): Observable<any> {
+    return this.httpClient.get<any>(`${environment.APIUrl}/Student/GetEditableByID?id=${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   DeleteStudent(id: number) {
     const url = `${environment.APIUrl}/Student/Delete?id=${id}`;
     return this.httpClient.delete(url, this.httpOptions).pipe(

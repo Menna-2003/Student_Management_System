@@ -1,2 +1,95 @@
-<p>add-student works!</p>
-<button (click)="addStudent()"> add-student</button>
+<div class="container mt-5">
+    <div class="main-body">
+        <div class="row">
+            <form [formGroup]="AddUserForm" (ngSubmit)="addStudent()">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-sm-2 text-center">
+                                <h3 class="mb-0">First Name</h3>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input formControlName="firstName" type="text" class="form-control">
+                                <div class="text-danger" [hidden]="FirstName?.valid || FirstName?.untouched">
+                                    <small *ngIf="FirstName?.errors?.['required']">First Name is required</small>
+                                    <small *ngIf="FirstName?.errors?.['pattern']">First Name must be at least 3 letters,
+                                        '{{FirstName?.errors?.['pattern'].actualValue}}' doesn't match</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-2 text-center">
+                                <h3 class="mb-0">Last Name</h3>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input formControlName="lastName" type="text" class="form-control">
+                                <div class="text-danger" [hidden]="LastName?.valid || LastName?.untouched">
+                                    <small *ngIf="LastName?.errors?.['required']">Last Name is required</small>
+                                    <small *ngIf="LastName?.errors?.['pattern']">Last Name must be at least 3 letters,
+                                        '{{LastName?.errors?.['pattern'].actualValue}}' doesn't match</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-2 text-center">
+                                <h3 class="mb-0">Email</h3>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input formControlName="email" type="text" class="form-control">
+                                <div class="text-danger" [hidden]="Email?.valid || Email?.untouched">
+                                    <small *ngIf="Email?.errors?.['required']">Email is required</small>
+                                    <small *ngIf="Email?.errors?.['email']">Wrong email format</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-2 text-center">
+                                <h3 class="mb-0">Phone</h3>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input type="text" formControlName="mobile" class="form-control">
+                                <div class="text-danger" [hidden]="Mobile?.valid || Mobile?.untouched">
+                                    <small *ngIf="Mobile?.errors?.['required']">Mobile is required</small>
+                                    <small *ngIf="Mobile?.errors?.['pattern']">Wrong Mobile format</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-2 text-center">
+                                <h3 class="mb-0">NationalID</h3>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input type="text" formControlName="nationalID" class="form-control">
+                                <div class="text-danger" [hidden]="NationalID?.valid || NationalID?.untouched">
+                                    <small *ngIf="NationalID?.errors?.['required']">NationalID is required</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-2 text-center">
+                                <h3 class="mb-0">Age</h3>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input type="text" formControlName="age" class="form-control">
+                                <div class="text-danger" [hidden]="Age?.valid || Age?.untouched">
+                                    <small *ngIf="Age?.errors?.['required']">Age is required</small>
+                                    <small *ngIf="Age?.errors?.['min']">Minimum Age is 2</small>
+                                    <small *ngIf="Age?.errors?.['max']">Maximum Age is 14</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 text-center"></div>
+                            <div class="col-sm-9 text-secondary">
+                                <button type="submit" class="btn px-4" [disabled]="!AddUserForm.valid"
+                                    style="background-color: #6CA0DC; color: #fff;background-color: #6CA0DC;">
+                                    Add Student
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

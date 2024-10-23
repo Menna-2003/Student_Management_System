@@ -2,14 +2,21 @@ import { Injectable } from '@angular/core';
 import { CreateUserRequest } from '../Models/create-user-request';
 import { LoginRequest } from '../Models/login-request';
 import { UserService } from './user.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, window } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAuthService {
 
-  constructor(private userService: UserService) { }
+  private isLoggedSubject: BehaviorSubject<boolean>;
+
+  constructor(private userService: UserService, private router: Router) {
+    const loggedIn = !!localStorage.getItem('token');
+    this.isLoggedSubject = new BehaviorSubject<boolean>(loggedIn);
+
+  }
 
   Register(newUser: CreateUserRequest) {
     this.userService.createUser(newUser).subscribe({
@@ -27,8 +34,18 @@ export class UserAuthService {
     })
   }
 
+  // Expose isLoggedSubject as an Observable
+  get isLogged$(): Observable<boolean> {
+    return this.isLoggedSubject.asObservable();
+  }
+
+  // Utility to directly get the value of the login status
   get isUserLogged(): boolean {
-    return localStorage.getItem('token') ? true : false;
+    return this.isLoggedSubject.value;
+  }
+
+  private setLoggedIn(value: boolean) {
+    this.isLoggedSubject.next(value);
   }
 
   Logout() {
@@ -38,6 +55,8 @@ export class UserAuthService {
         next: (response) => {
           console.log('Logged out successfully: ', response);
           localStorage.removeItem('token');
+          this.setLoggedIn(false);  // Notify subscribers of the logout status change
+          this.router.navigate(['/Home']);
         },
         error: (err) => {
           console.error('Error Logging out: ', err);
@@ -58,6 +77,8 @@ export class UserAuthService {
       next: (response) => {
         console.log('Logged in successfully: ', response);
         localStorage.setItem('token', response.Data);
+        this.setLoggedIn(true);  // Notify subscribers of the login status change
+        this.router.navigate(['/Home'])
       },
       error: (err) => {
         console.error('Error Logging in: ', err);

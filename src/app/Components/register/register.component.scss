@@ -61,7 +61,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #accffe;
+    background: #ffb45ade;
 }
 
 .inner {
@@ -164,7 +164,7 @@ h3 {
     }
 
     &:focus {
-        border-bottom: 1px solid #accffe;
+        border-bottom: 1px solid #ffb45ade;
     }
 }
 
@@ -178,7 +178,7 @@ button {
     align-items: center;
     justify-content: center;
     padding: 0;
-    background: #99ccff;
+    background: #ffb45ade;
     color: #fff;
     text-transform: uppercase;
     font-family: "Muli-SemiBold";

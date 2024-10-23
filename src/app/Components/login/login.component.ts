@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
       Password: this.Password?.value,
     }
     this.UserAuth.Login(user)
-    this.router.navigate(['/Home']);
   }
 
   get Email() {

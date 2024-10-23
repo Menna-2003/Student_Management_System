@@ -1,0 +1,110 @@
+.filter-container {
+  margin: auto;
+}
+
+/* Wrapper container */
+.table-container {
+  background-color: #f0f8ff;
+  /* Light Alice Blue Background */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  /* Subtle shadow */
+  margin-top: 30px;
+}
+
+/* Table Styling */
+table {
+  width: 90%;
+  margin: auto;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #ffffff;
+  /* White table background */
+}
+
+/* Table Header */
+th {
+  background-color: #6CA0DC;
+  /* Soft Blue */
+  color: #ffffff;
+  /* White Text */
+  padding: 14px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+/* Table Rows */
+tr {
+  transition: background-color 0.3s ease;
+}
+
+/* Table Cells */
+td {
+  padding: 12px;
+  color: #333333;
+  border-bottom: 1px solid #e0e0e0;
+  /* Subtle Border */
+  font-size: 14px;
+}
+
+/* Hover Effect for Rows */
+tr:hover {
+  background-color: #f7fbff;
+  /* Subtle Light Blue on Hover */
+}
+
+/* Filter Input Styling */
+.filter-container {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0 15px 0;
+}
+
+.filter-field {
+  width: 45%;
+  // margin-left: 10px;
+}
+
+.mat-form-field-appearance-outline {
+  background-color: #6CA0DC;
+  /* White Background for Input Field */
+  border-radius: 8px;
+  padding: 5px;
+  // border: 1px solid #8c008e;
+}
+
+.table-responsive {
+  display: block;
+  overflow-x: auto;
+
+  .mat-table {
+    width: 90%;
+    max-width: 95%;
+    margin-bottom: 1rem;
+    display: table;
+    border-collapse: collapse;
+    // margin: 0px;
+  }
+
+  .mat-row,
+  .mat-header-row {
+    display: table-row;
+  }
+
+  .mat-cell,
+  .mat-header-cell {
+    word-wrap: initial;
+    display: table-cell;
+    padding: 0px 5px;
+    line-break: unset;
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+  }
+}
