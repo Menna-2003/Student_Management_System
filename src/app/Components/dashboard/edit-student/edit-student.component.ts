@@ -12,8 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class EditStudentComponent implements OnInit {
 
-  EditUserForm: FormGroup;
-  studentId! : number;  // Store the ID as a number
+  EditUserForm!: FormGroup ;
+  studentId!: number;  // Store the ID as a number
 
   studentData: PutIStudent = {
     ID: 0,
@@ -38,15 +38,28 @@ export class EditStudentComponent implements OnInit {
     studentService.GetEditableByID(this.studentId).subscribe({
       next: (response) => {
         console.log('Student : ', response);
-        this.studentData.ID = response.Data.ID;
-        this.studentData.NameArabic = response.Data.NameArabic;
-        this.studentData.NameEnglish = response.Data.NameEnglish;
-        this.studentData.Age = response.Data.Age;
-        this.studentData.FirstName = response.Data.FirstName;
-        this.studentData.LastName = response.Data.LastName;
-        this.studentData.Mobile = response.Data.Mobile;
-        this.studentData.Email = response.Data.Email;
-        this.studentData.NationalID = response.Data.NationalID;
+        // this.studentData.ID = response.Data.ID;
+        // this.studentData.NameArabic = response.Data.NameArabic;
+        // this.studentData.NameEnglish = response.Data.NameEnglish;
+        // this.studentData.Age = response?.Data?.Age;
+        // this.studentData.FirstName = response.Data.FirstName;
+        // this.studentData.LastName = response.Data.LastName;
+        // this.studentData.Mobile = response.Data.Mobile;
+        // this.studentData.Email = response.Data.Email;
+        // this.studentData.NationalID = response.Data.NationalID;
+
+
+        this.EditUserForm = this.formBuilder.group({
+          nameArabic: [response.Data.NameArabic||'', [Validators.required]],
+          nameEnglish: [response.Data.NameEnglish||'', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
+          firstName: [response.Data.FirstName||'', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
+          lastName: [response.Data.LastName||'', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
+          email: [response?.Data?.Email || '', [Validators.required, Validators.email]],
+          mobile: [response?.Data?.Mobile||'', [Validators.required, Validators.pattern('^01[0-2,5]{1}[0-9]{8}$')]],
+          nationalID: [response?.Data?.NationalID ||'', [Validators.required]],
+          age: [response?.Data?.Age || '', [Validators.required, Validators.min(2), Validators.max(14)]],
+
+        });
 
         console.log(this.studentData);
       },
@@ -58,17 +71,18 @@ export class EditStudentComponent implements OnInit {
       }
     })
 
-    this.EditUserForm = this.formBuilder.group({
-      nameArabic: ['', [Validators.required]],
-      nameEnglish: ['', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
-      firstName: ['', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
-      lastName: ['', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
-      email: ['', [Validators.required, Validators.email]],
-      mobile: ['', [Validators.required, Validators.pattern('^01[0-2,5]{1}[0-9]{8}$')]],
-      nationalID: ['', [Validators.required]],
-      age: ['', [Validators.required, Validators.min(2), Validators.max(14)]],
+    // this.EditUserForm = this.formBuilder.group({
+    //   nameArabic: ['', [Validators.required]],
+    //   nameEnglish: ['', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
+    //   firstName: ['', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
+    //   lastName: ['', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
+    //   email: ['', [Validators.required, Validators.email]],
+    //   mobile: ['', [Validators.required, Validators.pattern('^01[0-2,5]{1}[0-9]{8}$')]],
+    //   nationalID: ['', [Validators.required]],
+    //   age: [this.studentData?.Age||'', [Validators.required, Validators.min(2), Validators.max(14)]],
 
-    });
+    // });
+
   }
   get NameArabic() {
     return this.EditUserForm.get('nameArabic');
@@ -139,6 +153,14 @@ export class EditStudentComponent implements OnInit {
       }
     );
     console.log(message)
+  }
+
+  subscribeChanges() {
+
+    this.EditUserForm.valueChanges.subscribe((value) => {
+
+      console.log(value)
+    });
   }
 
 }
